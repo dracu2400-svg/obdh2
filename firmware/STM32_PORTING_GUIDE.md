@@ -495,6 +495,7 @@ The STM32L476RG offers several advantages over MSP430F6659:
 - **STM32_PORTING_GUIDE.md** (this document) - Comprehensive porting guide
 - **STM32_PORT_STATUS.md** - Detailed port status and testing checklist
 - **STM32_PINMAPPING.md** - Complete pin mapping reference for hardware design
+- **FIRMWARE_ARCHITECTURE.md** - Firmware architecture, data flow, and task design (1700+ lines)
 - **stm32/README.md** - STM32 HAL library installation instructions
 
 ### External References
