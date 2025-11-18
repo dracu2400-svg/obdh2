@@ -1,0 +1,304 @@
+######################################
+# Target
+######################################
+TARGET = obdh2_stm32l476
+
+######################################
+# Building variables
+######################################
+# Debug build?
+DEBUG = 1
+# Optimization
+OPT = -Og
+
+#######################################
+# Paths
+#######################################
+# Build path
+BUILD_DIR = build_stm32
+
+######################################
+# Source files
+######################################
+# C sources
+C_SOURCES = \
+main.c \
+system/clocks.c \
+system/system.c \
+system/setup.c \
+system/hooks.c \
+system/sys_log/sys_log.c \
+app/libs/fsat_pkt/fsat_pkt.c \
+app/libs/fsp/fsp/fsp.c \
+app/libs/fsp/fsp/crc16.c \
+app/libs/hmac/hmac.c \
+app/libs/hmac/usha.c \
+app/libs/hmac/sha1.c \
+app/structs/satellite.c \
+app/tasks/beacon.c \
+app/tasks/antenna_deployment.c \
+app/tasks/heartbeat.c \
+app/tasks/data_log.c \
+app/tasks/process_tc.c \
+app/tasks/housekeeping.c \
+app/tasks/read_edc.c \
+app/tasks/read_antenna.c \
+app/tasks/read_sensors.c \
+app/tasks/read_eps.c \
+app/tasks/startup.c \
+app/tasks/read_ttc.c \
+app/tasks/tasks.c \
+app/tasks/system_reset.c \
+app/tasks/watchdog_reset.c \
+app/tasks/time_control.c \
+devices/antenna/antenna.c \
+devices/current_sensor/current_sensor.c \
+devices/eps/eps.c \
+devices/leds/leds.c \
+devices/media/media.c \
+devices/temp_sensor/temp_sensor.c \
+devices/payload/payload.c \
+devices/ttc/ttc.c \
+devices/voltage_sensor/voltage_sensor.c \
+devices/watchdog/watchdog.c \
+drivers/adc/adc_delay.c \
+drivers/adc/adc.c \
+drivers/cy15x102qn/cy15x102qn.c \
+drivers/cy15x102qn/cy15x102qn_gpio.c \
+drivers/cy15x102qn/cy15x102qn_spi.c \
+drivers/edc/edc.c \
+drivers/edc/edc_gpio.c \
+drivers/edc/edc_delay.c \
+drivers/edc/edc_i2c.c \
+drivers/edc/edc_uart.c \
+drivers/flash/flash.c \
+drivers/gpio/gpio.c \
+drivers/i2c/i2c.c \
+drivers/isis_antenna/isis_antenna.c \
+drivers/isis_antenna/isis_antenna_i2c.c \
+drivers/isis_antenna/isis_antenna_delay.c \
+drivers/mt25q/mt25q.c \
+drivers/mt25q/mt25q_gpio.c \
+drivers/mt25q/mt25q_delay.c \
+drivers/mt25q/mt25q_spi.c \
+drivers/phj/phj.c \
+drivers/px/px.c \
+drivers/rtc/rtc.c \
+drivers/sl_eps/sl_eps.c \
+drivers/sl_eps2/sl_eps2_i2c.c \
+drivers/sl_eps2/sl_eps2_delay.c \
+drivers/sl_eps2/sl_eps2.c \
+drivers/sl_ttc2/sl_ttc2.c \
+drivers/sl_ttc2/sl_ttc2_spi.c \
+drivers/sl_ttc2/sl_ttc2_delay.c \
+drivers/spi/spi.c \
+drivers/tca4311a/tca4311a.c \
+drivers/uart/uart.c \
+drivers/tps382x/tps382x.c \
+drivers/wdt/wdt.c \
+freertos/event_groups.c \
+freertos/croutine.c \
+freertos/list.c \
+freertos/portable/GCC/ARM_CM4F/port.c \
+freertos/portable/MemMang/heap_1.c \
+freertos/queue.c \
+freertos/stream_buffer.c \
+freertos/timers.c \
+freertos/tasks.c \
+stm32/system_stm32l4xx.c \
+stm32/stm32l4xx_it.c \
+stm32/stm32l4xx_hal_msp.c
+
+# STM32 HAL Sources (minimal set - add more as needed)
+C_SOURCES += \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_cortex.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc_ex.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_gpio.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_dma.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr_ex.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash_ex.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash_ramfunc.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_spi.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart_ex.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc_ex.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rtc.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rtc_ex.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tim.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tim_ex.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_iwdg.c \
+stm32/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_wwdg.c
+
+# ASM sources
+ASM_SOURCES = \
+stm32/startup_stm32l476xx.s
+
+#######################################
+# Binaries
+#######################################
+PREFIX = arm-none-eabi-
+# The gcc compiler bin path can be either defined in make command via GCC_PATH variable (> make GCC_PATH=xxx)
+# either it can be added to the PATH environment variable.
+ifdef GCC_PATH
+CC = $(GCC_PATH)/$(PREFIX)gcc
+AS = $(GCC_PATH)/$(PREFIX)gcc -x assembler-with-cpp
+CP = $(GCC_PATH)/$(PREFIX)objcopy
+SZ = $(GCC_PATH)/$(PREFIX)size
+else
+CC = $(PREFIX)gcc
+AS = $(PREFIX)gcc -x assembler-with-cpp
+CP = $(PREFIX)objcopy
+SZ = $(PREFIX)size
+endif
+HEX = $(CP) -O ihex
+BIN = $(CP) -O binary -S
+
+#######################################
+# CFLAGS
+#######################################
+# CPU
+CPU = -mcpu=cortex-m4
+
+# FPU
+FPU = -mfpu=fpv4-sp-d16
+
+# Float-ABI
+FLOAT-ABI = -mfloat-abi=hard
+
+# MCU
+MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI)
+
+# AS defines
+AS_DEFS =
+
+# C defines
+C_DEFS =  \
+-DUSE_HAL_DRIVER \
+-DSTM32L476xx \
+-DARM_MATH_CM4 \
+-DARM_MATH_MATRIX_CHECK \
+-DARM_MATH_ROUNDING
+
+# AS includes
+AS_INCLUDES =
+
+# C includes
+C_INCLUDES =  \
+-Iconfig \
+-Isystem \
+-Isystem/sys_log \
+-Iapp/tasks \
+-Iapp/structs \
+-Iapp/libs/fsat_pkt \
+-Iapp/libs/fsp/fsp \
+-Iapp/libs/hmac \
+-Idevices/antenna \
+-Idevices/current_sensor \
+-Idevices/eps \
+-Idevices/leds \
+-Idevices/media \
+-Idevices/temp_sensor \
+-Idevices/payload \
+-Idevices/ttc \
+-Idevices/voltage_sensor \
+-Idevices/watchdog \
+-Idrivers/adc \
+-Idrivers/cy15x102qn \
+-Idrivers/edc \
+-Idrivers/flash \
+-Idrivers/gpio \
+-Idrivers/i2c \
+-Idrivers/isis_antenna \
+-Idrivers/mt25q \
+-Idrivers/phj \
+-Idrivers/px \
+-Idrivers/rtc \
+-Idrivers/sl_eps \
+-Idrivers/sl_eps2 \
+-Idrivers/sl_ttc2 \
+-Idrivers/spi \
+-Idrivers/tca4311a \
+-Idrivers/uart \
+-Idrivers/tps382x \
+-Idrivers/wdt \
+-Ifreertos/include \
+-Ifreertos/portable/GCC/ARM_CM4F \
+-Istm32/STM32L4xx_HAL_Driver/Inc \
+-Istm32/STM32L4xx_HAL_Driver/Inc/Legacy \
+-Istm32/CMSIS/Device/ST/STM32L4xx/Include \
+-Istm32/CMSIS/Include
+
+# Compile gcc flags
+ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
+
+CFLAGS = $(MCU) $(C_DEFS) $(C_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
+
+ifeq ($(DEBUG), 1)
+CFLAGS += -g -gdwarf-2
+endif
+
+# Generate dependency information
+CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)"
+
+#######################################
+# LDFLAGS
+#######################################
+# Link script
+LDSCRIPT = stm32/STM32L476RGTx_FLASH.ld
+
+# Libraries
+LIBS = -lc -lm -lnosys
+LIBDIR =
+LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
+
+# Default action: build all
+all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
+
+#######################################
+# Build the application
+#######################################
+# List of objects
+OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(C_SOURCES:.c=.o)))
+vpath %.c $(sort $(dir $(C_SOURCES)))
+# List of ASM program objects
+OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES:.s=.o)))
+vpath %.s $(sort $(dir $(ASM_SOURCES)))
+
+$(BUILD_DIR)/%.o: %.c Makefile.stm32 | $(BUILD_DIR)
+	$(CC) -c $(CFLAGS) -Wa,-a,-ad,-alms=$(BUILD_DIR)/$(notdir $(<:.c=.lst)) $< -o $@
+
+$(BUILD_DIR)/%.o: %.s Makefile.stm32 | $(BUILD_DIR)
+	$(AS) -c $(CFLAGS) $< -o $@
+
+$(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) Makefile.stm32
+	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
+	$(SZ) $@
+
+$(BUILD_DIR)/%.hex: $(BUILD_DIR)/%.elf | $(BUILD_DIR)
+	$(HEX) $< $@
+
+$(BUILD_DIR)/%.bin: $(BUILD_DIR)/%.elf | $(BUILD_DIR)
+	$(BIN) $< $@
+
+$(BUILD_DIR):
+	mkdir $@
+
+#######################################
+# Clean
+#######################################
+clean:
+	-rm -fR $(BUILD_DIR)
+
+#######################################
+# Dependencies
+#######################################
+-include $(wildcard $(BUILD_DIR)/*.d)
+
+# *** EOF ***
