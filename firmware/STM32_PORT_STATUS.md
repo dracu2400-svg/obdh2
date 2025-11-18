@@ -59,6 +59,8 @@ This document tracks the progress of porting OBDH 2.0 firmware from MSP430F6659 
 |----------|------|--------|---------|
 | Porting Guide | `STM32_PORTING_GUIDE.md` | ✅ Complete | Comprehensive 400+ lines |
 | HAL Setup Guide | `stm32/README.md` | ✅ Complete | How to get STM32 HAL lib |
+| Pin Mapping Reference | `STM32_PINMAPPING.md` | ✅ Complete | Complete pin-out reference |
+| Architecture Guide | `FIRMWARE_ARCHITECTURE.md` | ✅ Complete | Firmware architecture (1700+ lines) |
 | Status Report | `STM32_PORT_STATUS.md` | ✅ Complete | This document |
 
 ---
@@ -352,6 +354,8 @@ Once all drivers are complete:
 ### Getting Help
 
 - **Port-specific questions:** See `STM32_PORTING_GUIDE.md`
+- **Firmware architecture:** See `FIRMWARE_ARCHITECTURE.md` for detailed system design
+- **Pin mapping:** See `STM32_PINMAPPING.md` for hardware pin assignments
 - **HAL library issues:** See `stm32/README.md`
 - **Build issues:** Check toolchain installation and Makefile paths
 - **Runtime issues:** Enable debug logging in `config/config.h`
